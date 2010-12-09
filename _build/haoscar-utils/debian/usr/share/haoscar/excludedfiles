@@ -1,0 +1,5 @@
+/etc/init.d/ha-oscar-filemon
+/etc/rc2.d/S99ha-oscar-filemon
+/etc/rc3.d/S99ha-oscar-filemon
+/etc/rc5.d/S99ha-oscar-filemon
+
