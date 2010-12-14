@@ -1,6 +1,10 @@
 #!/bin/bash
 if [ `whoami` = root ]; then
-	SECONDARY=`grep "SECONDARY_IP" /usr/share/haoscar/sysimager.conf | cut -f 2 -d ':'`
+	watch_dirs=`sqlite3 /usr/share/haoscar/hadb 'select * from General_Configuration where DATA_SYNC="RSYNC";'|cut -f 1 -d '|' | sed 's/;/ /g'`;	
+        SECONDARY=`grep "SECONDARY_IP" /usr/share/haoscar/sysimager.conf | cut -f 2 -d ':'`
+        for d in $watch_dirs;do
+            rsync --progress --stats -aHrvxz $SECONDARY:$d $d 
+        done
 	monit monitor all
 	/etc/init.d/heartbeat start
 	ssh $SECONDARY 'service heartbeat restart'
