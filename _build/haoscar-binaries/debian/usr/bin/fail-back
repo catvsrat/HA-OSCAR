@@ -3,7 +3,7 @@ if [ `whoami` = root ]; then
 	watch_dirs=`sqlite3 /usr/share/haoscar/hadb 'select * from General_Configuration where DATA_SYNC="RSYNC";'|cut -f 1 -d '|' | sed 's/;/ /g'`;	
         SECONDARY=`grep "SECONDARY_IP" /usr/share/haoscar/sysimager.conf | cut -f 2 -d ':'`
         for d in $watch_dirs;do
-            rsync --progress --stats -aHurvx $SECONDARY:$d $d 
+            rsync --progress --stats -aHurvx "$SECONDARY:$d/" $d 
 	done
 	monit monitor all
 	/etc/init.d/heartbeat start
