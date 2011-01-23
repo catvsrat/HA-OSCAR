@@ -82,7 +82,7 @@ def configure():
 	if(len(nic_info)):
 		logger.subsection("using interface "+nic_info)
 		hacf_value.append("\nbcast "+nic_info)
-		hacf_value.append("\nauto_failback on\n")
+		hacf_value.append("\nauto_failback off\n")
 		hacf_value.append("node "+commands.getoutput("uname -n")+"\n")
 			
 		if(secondary_conf[0]['HOSTNAME']):
