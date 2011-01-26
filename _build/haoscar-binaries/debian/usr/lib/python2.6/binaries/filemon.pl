@@ -107,7 +107,8 @@ sub call_rsync {
 	print "RSYNC CALLED\n";
 	foreach my $path (@ARGV){
 		my $mod = basename($path);
-		my $rsync_cmd = "rsync -az --delete /$mod/ $secondary_server:$path/";
+		die "Path is not a full path" if $path !~ m/^\//;
+		my $rsync_cmd = "rsync -az --delete $path/ $secondary_server:$path/";
 		print "Synchronizing $mod\n"; 
 		print "command = $rsync_cmd\n";
 		!system($rsync_cmd) or die "Error in '$rsync_cmd'";
